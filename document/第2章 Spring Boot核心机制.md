@@ -137,13 +137,13 @@ Spring Boot 框架的一个重要特性就是简化了项目依赖管理。它�
 # Starter-启动器
 在 Spring Boot 中，启动器（Starter）本质上是一个简化依赖管理的概念。
 
-Spring Boot 的启动器本质上就是一组预定义的依赖集合，它们被组织成一个个 Maven的依赖，以方便开发者快速集成特定的功能模块。
+**Spring Boot 的启动器本质上就是一组预定义的依赖集合，它们被组织成一个个 Maven的依赖**，以方便开发者快速集成特定的功能模块。
 
 如果你想做web开发，只需要引入web启动器。web启动器会自动引入web开发所需要的子依赖。
 
 ## 启动器实现原理
 1. **依赖聚合**：  
-每个启动器通常对应一个特定的功能集或者一个完整的应用模块，如 `spring-boot-starter-web` 就包含了构建 Web 应用所需的所有基本依赖项，如 Spring MVC, Tomcat 嵌入式容器等。
+  每个启动器通常对应一个特定的功能集或者一个完整的应用模块，如 `spring-boot-starter-web` 就包含了构建 Web 应用所需的所有基本依赖项，如 Spring MVC, Tomcat 嵌入式容器等。
 2. **依赖传递**：  
 当你在项目中引入一个启动器时，它不仅会把自身作为依赖加入到你的项目中，还会把它的所有直接依赖项（transitive dependencies）也加入进来。这意味着你不需要单独声明这些依赖项，它们会自动成为项目的一部分。
 3. **版本管理**：  
@@ -214,7 +214,7 @@ Spring Boot的主入口程序被`@SpringBootApplication`注解标注，可见这
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1729563192417-c03008ef-81f9-4741-ad09-42d49a4b2cc9.png)
 
-可以看出这个注解属于`组合注解`。拥有`@SpringBootConfiguration`、`@EnableAutoConfiguration`、`@ComponentScan`的功能。
+**可以看出这个注解属于`组合注解`。拥有`@SpringBootConfiguration`、`@EnableAutoConfiguration`、`@ComponentScan`的功能。**
 
 
 
@@ -225,25 +225,29 @@ Spring Boot的主入口程序被`@SpringBootApplication`注解标注，可见这
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1729563436496-752f56df-52aa-404b-bf83-c122a06f1312.png)
 
-
-
-![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
-
 可以看到这个注解的被`@Configuration`标注，说明`主入口`程序是一个配置类。也就是说主入口中的方法可以被`@Bean`注解标注，被`@Bean`注解的标注的方法会被Spring容器自动调用，并且将该方法的返回对象纳入IoC容器的管理。测试一下：
 
 ```java
 @SpringBootApplication
 public class Sb305CoreApplication {
+    
     @Bean
     public Date getNowDate(){ // 方法名作为bean的id
         return new Date();
     }
+    
     public static void main(String[] args) {
+        // 通过run方法的返回值是可以获取到Spring上下文对象的
+        // ConfigurableApplicationContext 继承了 ApplicationContext
+        // 因此run方法的返回值就是Spring容器
         ConfigurableApplicationContext applicationContext = SpringApplication.run(Sb305CoreApplication.class, args);
         Date dateBean1 = applicationContext.getBean(Date.class);
         System.out.println(dateBean1);
         Date dateBean2 = applicationContext.getBean("getNowDate", Date.class);
         System.out.println(dateBean2);
+        
+        // 关闭容器
+        applicationContext.close();
     }
 }
 ```
@@ -263,7 +267,7 @@ public class Sb305CoreApplication {
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
 ## @EnableAutoConfiguration注解
-该注解表示`启用自动配置`。
+**该注解表示`启用自动配置`。**
 
 Spring Boot 会根据你引入的依赖自动为你配置好一系列的 Bean，无需手动编写复杂的配置代码。
 

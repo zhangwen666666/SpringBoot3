@@ -17,9 +17,9 @@
 
 
 
-Spring Boot倡导`约定优于配置`，将`简化开发`发挥到极致。使用Spring Boot框架可以快速构建Spring应用，再也不需要`大量的繁琐的`的各种配置。Spring Boot框架设计的目标是：程序员关注业务逻辑就行了，环境方面的事儿交给Spring Boot就行。
+Spring Boot倡导**约定优于配置**，将**简化开发**发挥到极致。使用Spring Boot框架可以快速构建Spring应用，再也不需要**大量的繁琐的**的各种配置。**Spring Boot框架设计的目标是：程序员关注业务逻辑就行了，环境方面的事儿交给Spring Boot就行。**
 
-
+**SpringBoot两大核心：启动器和自动配置**
 
 Spring Boot特性：
 
@@ -35,7 +35,7 @@ Spring Boot特性：
 Spring Boot的开箱即用和约定优于配置：
 
 + 开箱即用：Spring Boot框架设计得非常便捷，开发者能够在几乎不需要任何复杂的配置的情况下，快速搭建并运行一个功能完备的Spring应用。
-+ 约定优于配置：“约定优于配置”（Convention Over Configuration, CoC）是一种软件设计哲学，核心思想是通过提供一组合理的默认行为来减少配置的数量，从而简化开发流程。例如：Spring Boot默认约定了使用某个事务管理器，在事务方面不需要做任何配置，只需要在对应代码的位置上使用`@Transactional`注解即可。
++ 约定优于配置：“约定优于配置”（Convention Over Configuration, CoC）是一种软件设计哲学，核心思想是通过提供一组合理的默认行为来减少配置的数量，从而简化开发流程。例如：Spring Boot默认约定了使用某个事务管理器TransactionManager，在事务方面不需要做任何配置，只需要在对应代码的位置上使用`@Transactional`注解即可。
 
 
 
@@ -123,7 +123,11 @@ JDK版本：21（Spring Boot3要求JDK的最低版本是JDK17）
 
 ```xml
 <dependencies>
-    <!--引入Spring Boot web启动器依赖-->
+    <!--
+		引入Spring Boot web启动器依赖
+		这样的话自动会将web开发相关的所有依赖全部引入，例如json、tomcat、springmvc等
+		这些依赖的版本也不需要我们管理，自动管理
+	-->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
@@ -146,10 +150,12 @@ package com.powernode.springboot3;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// 所有的springboot应用的主入口程序都必须使用 @SpringBootApplication 注解进行标注
 @SpringBootApplication
 public class MyApplication {
-
+	// 主入口，运行main方法就是启动服务器
     public static void main(String[] args) {
+        // run方法需要两个参数，第一个是主入口类，第二个是主入口参数
         SpringApplication.run(MyApplication.class, args);
     }
 }
@@ -160,6 +166,9 @@ public class MyApplication {
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804571434-d020e651-43df-4cd7-ae0a-f938ecb04237.png)
 
 ## 第八步：编写controller
+
+需要注意这个controller必须放在主入口程序所在的包的同包或者子包中，否则扫描不到controller
+
 ```java
 package com.powernode.springboot3.controller;
 
