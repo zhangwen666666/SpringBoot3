@@ -1,0 +1,46 @@
+a:
+  username: lisi
+  password: abcdef
+
+user:
+  username: jack
+  age: 66
+  address:
+    city: ShangHai
+    street: oneStreet
+
+app2:
+  hobbies:
+    - ChouYan
+    - HeJiu
+  users:
+    - username: Bob
+      age: 30
+      address:
+        city: XiAn
+        street: LinTong
+    - username: Jack
+      age: 34
+      address:
+        city: DaTong
+        street: PingCheng
+  vips:
+    - id: 1000
+      name: Lisa
+      sex: M
+      address:
+        city: BeiJing
+        street: FengTai
+    - id: 1001
+      name: Tom
+      sex: F
+      address:
+        city: QingDao
+        street: DongCheng
+  addrs:
+    key1:
+      city: city01
+      street: street01
+    key2:
+      city: city02
+      street: street02

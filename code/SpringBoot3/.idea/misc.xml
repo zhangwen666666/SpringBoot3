@@ -8,6 +8,8 @@
         <option value="$PROJECT_DIR$/springboot3-02-use-spring-initializr/pom.xml" />
         <option value="$PROJECT_DIR$/springboot3-03-use-idea-plugin/pom.xml" />
         <option value="$PROJECT_DIR$/springboot3-04-core-annotation/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot3-05-junit/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot3-06-config-annotation/pom.xml" />
       </list>
     </option>
   </component>
