@@ -521,7 +521,7 @@ Spring Boot 框架在启动时会尝试从以下位置加载 `application.proper
 
 Spring Boot 会按照这个顺序来加载配置文件，如果在多个位置有相同的属性定义，那么最先检查的位置中的属性值将优先使用。
 
-如果你想要指定其他的配置文件位置或者改变默认的行为，可以通过 `--spring.config.location=` 后跟路径的方式来指定配置文件的具体位置。例如 ：
+**如果你想要指定其他的配置文件位置或者改变默认的行为，可以通过 `--spring.config.location=` 后跟路径的方式来指定配置文件的具体位置**。例如 ：
 
 ```plain
 java -jar sb3-01-first-web-1.0-SNAPSHOT.jar --spring.config.location=file:///E:\a\b\application.properties
@@ -679,7 +679,7 @@ SpringBoot采用集中式配置管理，所有的配置都编写到一个配置�
 
 YAML（YAML Ain't Markup Language）是一种人类可读的数据序列化格式，它通常用于配置文件，在各种编程语言中作为一种存储或传输数据的方式。YAML的设计目标是易于阅读和编写，同时保持足够的表达能力来表示复杂的数据结构。
 
-**<font style="color:#DF2A3F;">YAML文件的扩展名可以是</font>**`**<font style="color:#DF2A3F;">.yaml</font>**`**<font style="color:#DF2A3F;">或</font>**`**<font style="color:#DF2A3F;">.yml</font>**`**<font style="color:#DF2A3F;">。</font>**
+<span style="color:red;">**YAML文件的扩展名可以是`.yaml`或`.yml`。**</span>
 
 ### 常见的数据存储和交换格式
 `properties`、`XML`、`JSON`、`YAML`这几种格式确实是用来存储和交换数据的常见方式，但它们各有特点和适用场景：
@@ -730,20 +730,21 @@ myapp:
 ```
 
 4. 同级元素左对齐。例如：
-    1. `properties`文件中有这样的配置：
-
-```properties
-myapp.name=mall
-myapp.count=10
-```
-
-    2. `yaml`文件中就应该这样配置：
-
-```yaml
-myapp:
-  name: mall
-  count: 10
-```
+    
+    * `properties`文件中有这样的配置：
+    
+      ```properties
+      myapp.name=mall
+      myapp.count=10
+      ```
+    
+    * `yaml`文件中就应该这样配置：
+    
+      ```yml
+      myapp:
+        name: mall
+        count: 10
+      ```
 
 5. 键必须是唯一的：在一个映射中，键必须是唯一的。
 6. 注释：使用`#`进行注释。
@@ -763,14 +764,12 @@ myapp:
 
 + --- 这个符号下面的配置可以认为是一个独立的yaml文件。便于庞大文件的阅读。
 
-**<font style="color:#DF2A3F;"></font>**
-
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
 ### application.yml
 Spring Boot框架同时支持`properties`和`yaml`。
 
-**<font style="color:#DF2A3F;">强调：在同一个目录下同时存在</font>**`**<font style="color:#DF2A3F;">application.properties</font>**`**<font style="color:#DF2A3F;">和</font>**`**<font style="color:#DF2A3F;">application.yml</font>**`**<font style="color:#DF2A3F;">时，SpringBoot优先解析</font>**`**<font style="color:#DF2A3F;">application.properties</font>**`**<font style="color:#DF2A3F;">文件。</font>**
+<span style="color:red">强调：在同一个目录下同时存在`application.properties`和`application.yml`时，SpringBoot优先解析`application.properties`文件。</span>
 
 在`resources/config`目录下新建`application.yml`文件，进行如下配置：
 
@@ -817,6 +816,7 @@ spring.data.redis.port=6379
 `application.properties`
 
 ```properties
+# 对于属性配置文件来说，数组元素采用逗号隔开
 spring.config.import=classpath:application-mysql.properties,classpath:application-redis.properties
 ```
 
@@ -882,6 +882,14 @@ spring:
     import:
       - classpath:application-mysql.yml
       - classpath:application-redis.yml
+```
+
+或者
+
+```yml
+spring:
+  config:
+    import: [classpath:application-mysql.yml, classpath:application-redis.yml]
 ```
 
 运行测试：
@@ -1017,7 +1025,7 @@ public class AppBean {
 
 配置文件中的`name`、`age`、`email`要和bean对象的属性名`name`、`age`、`email`对应上。（属性名相同）
 
-并且bean中的所有属性都提供了`setter`方法。因为底层是通过`setter`方法给bean属性赋值的。
+并且bean中的所有属性都提供了`setter`方法。因为**底层是通过`setter`方法给bean属性赋值的。**
 
 2. 这样的bean需要使用`@Component`注解进行标注，纳入IoC容器的管理。`@Component`注解负责创建Bean对象，`@ConfigurationProperties(prefix = "app")`注解负责给bean对象的属性赋值。
 3. bean的属性需要是`非static`的属性。
@@ -1256,28 +1264,12 @@ public class Sb307ExternalConfigApplication {
 代码如下：
 
 ```java
-package com.powernode.sb307externalconfig.bean;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 @ConfigurationProperties
 public class CollectionConfig {
     private String[] names;
+    private Address[] addrs;
     private List<Product> products;
     private Map<String, Vip> vips;
-
-    @Override
-    public String toString() {
-        return "CollectionConfig{" +
-                "names=" + Arrays.toString(names) +
-                ", products=" + products +
-                ", vips=" + vips +
-                '}';
-    }
 
     public String[] getNames() {
         return names;
@@ -1365,6 +1357,35 @@ class Vip {
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
+配置信息如下：`application.properties`
+
+```
+# 数组
+names[0]=zhangsan
+names[1]=lisi
+names[2]=wangwu
+
+# 数组addrs
+addrs[0].city=BeiJing
+addrs[0].street=ChaoYang
+addrs[1].city=TianJin
+addrs[1].street=NanKai
+
+# List集合
+products[0].name=草莓
+products[0].price=13.14
+products[1].name=香蕉
+products[2].price=5.20
+
+# Map集合
+vips.vip1.name=lucy
+vips.vip1.age=30
+vips.vip2.name=jack
+vips.vip2.age=18
+```
+
+
+
 配置信息如下：`application.yml`
 
 ```yaml
@@ -1373,6 +1394,14 @@ names:
   - jackson
   - lucy
   - lili
+  
+# 数组
+addrs:
+  - city: ShangHai
+    street: 1街道
+  - city: ChongQing
+    street: 2街道
+  
 
 #List集合
 products: 
@@ -1391,11 +1420,13 @@ vips:
     age: 22
 ```
 
+或者数组这样写
 
+```
+names: [jackson, lucy, lili]
+```
 
-提醒：记得入口程序使用<font style="color:#080808;background-color:#ffffff;">@ConfigurationPropertiesScan(basePackages = "com.powernode.sb307externalconfig.bean")进行标注。</font>
-
-<font style="color:#080808;background-color:#ffffff;"></font>
+提醒：记得入口程序使用`@ConfigurationPropertiesScan(basePackages = "com.powernode.sb307externalconfig.bean")`进行标注
 
 <font style="color:#080808;background-color:#ffffff;">编写测试程序，执行结果如下：</font>
 
@@ -1676,7 +1707,7 @@ class Sb307ExternalConfigApplicationTests {
 
 
 ## Environment
-**<font style="color:#DF2A3F;">SpringBoot框架在启动的时候会将系统配置，环境信息全部封装到</font>**`**<font style="color:#DF2A3F;">Environment</font>**`**<font style="color:#DF2A3F;">对象中，如果要获取这些环境信息，可以调用</font>**`**<font style="color:#DF2A3F;">Environment</font>**`**<font style="color:#DF2A3F;">接口的方法。</font>**
+<span style="color:red;">**SpringBoot框架在启动的时候会将系统配置，环境信息全部封装到`Encironment`对象中，如果要获取这些环境信息，可以调用接口的方法。**</span>
 
 在Spring Boot中，`Environment`接口提供了访问应用程序环境信息的方法，比如活动配置文件、系统环境变量、命令行参数等。`Environment`接口由Spring框架提供，Spring Boot应用程序通常会使用Spring提供的实现类`AbstractEnvironment`及其子类来实现具体的环境功能。
 

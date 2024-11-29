@@ -285,6 +285,8 @@ public interface VipMapper {
 ## 添加Mapper的扫描
 在Spring Boot的入口程序上添加如下的注解，来完成`VipMapper`接口的扫描：
 
+(也可以在Mapper接口上使用Mapper注解进行标注)
+
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1729133412840-754cf9d1-1f3c-4667-bf7b-09a0018f7581.png)
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
@@ -439,8 +441,6 @@ public class Sb305SpringbootMybatisApplication {
 
 # Lombok库
 Lombok 是一个 Java 库，它可以通过注解的方式减少 Java 代码中的样板代码。Lombok 自动为你生成构造函数、getter、setter、equals、hashCode、toString 方法等，从而避免了手动编写这些重复性的代码。这不仅减少了出错的机会，还让代码看起来更加简洁。
-
-
 
 **<font style="color:#DF2A3F;">Lombok只是一个编译阶段的库，能够帮我们自动补充代码，在Java程序运行阶段并不起作用。（因此Lombok库并不会影响Java程序的执行效率）</font>**
 

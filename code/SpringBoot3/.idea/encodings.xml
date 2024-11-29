@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/lombok-test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lombok-test/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot3-01-first/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot3-01-first/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot3-02-use-spring-initializr/src/main/java" charset="UTF-8" />
@@ -8,5 +10,6 @@
     <file url="file://$PROJECT_DIR$/springboot3-04-core-annotation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot3-05-junit/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot3-06-config-annotation/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot3-07-mybatis/src/main/java" charset="UTF-8" />
   </component>
 </project>
