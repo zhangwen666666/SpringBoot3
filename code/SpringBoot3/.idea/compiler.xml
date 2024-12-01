@@ -15,6 +15,7 @@
         <module name="springboot3-04-core-annotation" />
         <module name="springboot3-01-first" />
         <module name="lombok-test" />
+        <module name="springboot3-08-ssm" />
       </profile>
     </annotationProcessing>
   </component>
@@ -27,6 +28,7 @@
       <module name="springboot3-05-junit" options="-parameters" />
       <module name="springboot3-06-config-annotation" options="-parameters" />
       <module name="springboot3-07-mybatis" options="-parameters" />
+      <module name="springboot3-08-ssm" options="-parameters" />
     </option>
   </component>
 </project>
