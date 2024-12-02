@@ -193,7 +193,7 @@ Spring Boot 为 Spring MVC 提供了自动配置，这在大多数应用程序�
 
 + 包括 `ContentNegotiatingViewResolver` 和 `BeanNameViewResolver` 的 Bean。
     - `ContentNegotiatingViewResolver` 自动根据HTTP请求头中Accept字段来选择合适的视图技术渲染响应。
-    - `<font style="color:rgb(44, 44, 54);">BeanNameViewResolver</font>`<font style="color:rgb(44, 44, 54);"> 的作用是根据视图名称找到视图View对象。</font>
+    - `BeanNameViewResolver`的作用是根据视图名称找到视图View对象。
 + 支持提供静态资源，包括对 WebJars的支持。
     - 静态资源路径默认已经配置好了。默认会去static目录下找。
 + 自动注册 `Converter`、`GenericConverter` 和 `Formatter` 的 Bean。

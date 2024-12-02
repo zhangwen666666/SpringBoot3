@@ -413,7 +413,7 @@ spring.thymeleaf.suffix=.html
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
-这些配置最终都会通过`@ConfigurationProperties(prefix="")`注解绑定到对应的bean的属性上。这个Bean我们一般称为`属性类`。例如：
+**这些配置最终都会通过`@ConfigurationProperties(prefix="")`注解绑定到对应的bean的属性上。**这个Bean我们一般称为`属性类`。例如：
 
 `ServerProperties`：服务器属性类，专门负责配置服务器相关信息。
 
@@ -470,7 +470,7 @@ Spring Boot框架中的@ConditionalOnXxx系列注解属于条件注解（Conditi
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
-假设我们来实现这样一个功能：如果IoC容器当中**<font style="color:#DF2A3F;">存在</font>**`**<font style="color:#DF2A3F;">A</font>**`**<font style="color:#DF2A3F;">Bean</font>**，就创建`B`Bean，代码如下：
+假设我们来实现这样一个功能：如果IoC容器中存在A Bean，就创建B Bean，如下
 
 ```java
 @Configuration
@@ -491,7 +491,7 @@ public class AppConfig {
 
 
 
-如果IoC容器当中**<font style="color:#DF2A3F;">不存在</font>**`**<font style="color:#DF2A3F;">A</font>**`**<font style="color:#DF2A3F;">Bean</font>**，就创建`B`Bean，代码如下：
+如果IoC容器当中不存在A Bean时，就创建`B`Bean，代码如下：
 
 ```java
 @Configuration
@@ -596,9 +596,7 @@ public class MyConfig {
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1731122983126-29db71a3-9150-4d01-9be9-719eca312ac3.png)
 
-最先获取到`152`个，经过上图的一层一层的过滤（**条件注解**），**<font style="color:#DF2A3F;">最终筛选了</font>**`**<font style="color:#DF2A3F;">26</font>**`**<font style="color:#DF2A3F;">个自动配置类，为什么这么少，因为你只引入了</font>**`**<font style="color:#DF2A3F;">web starter</font>**`**<font style="color:#DF2A3F;">。这26个配置就是做web开发需要的最少配置</font>**。
-
-![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
+最先获取到`152`个，经过上图的一层一层的过滤（**条件注解**），**<font style="color:red;">最终筛选了26个自动配置类，为什么这么少，因为你只引入了web starter。这26个配置就是做Web开发需要的最少的配置。</font>**
 
 **具体怎么排除的，请看以下解释：**
 
@@ -606,7 +604,7 @@ public class MyConfig {
 
 去重：移除 configurations 列表中的重复项，确保每个配置类只出现一次。
 
-+ Set<String> exclusions = getExclusions(annotationMetadata, attributes);
++ Set\<String> exclusions = getExclusions(annotationMetadata, attributes);
 
 获取排除列表：从注解元数据和属性中获取需要排除的配置类名称集合。因为`@EnableAutoConfiguration`注解还能这么用：`@EnableAutoConfiguration(exclude = {排除列表}, excludeName = {排除列表})`
 
