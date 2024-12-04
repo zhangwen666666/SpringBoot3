@@ -209,11 +209,9 @@ Spring Boot 为 Spring MVC 提供了自动配置，这在大多数应用程序�
 + 自动使用 `ConfigurableWebBindingInitializer` Bean。
     - 用它来指定默认使用哪个转换器，默认使用哪个格式化器。在这个类当中都已经配好了。
 
-如果您不想使用自动配置并希望完全控制 Spring MVC，可以添加您自己的带有 `**<font style="color:#DF2A3F;">@EnableWebMvc</font>**` 注解的 `@Configuration`。
+如果您不想使用自动配置并希望完全控制 Spring MVC，可以添加您自己的带有 <font style="color:red;">**`@EnableWebMvc`**</font> 注解的 `@Configuration`。（**完全不使用自动配置**）
 
-如果您希望保留这些 Spring Boot MVC 定制化设置并进行更多的 MVC 定制化（如拦截器、格式化程序、视图控制器等其他功能），可以添加您自己的类型为 `WebMvcConfigurer` 的 `@Configuration` 类。**<font style="color:#DF2A3F;">但不能使用</font>**`**<font style="color:#DF2A3F;">@EnableWebMvc</font>**`**<font style="color:#DF2A3F;">注解</font>**。
-
-
+如果您希望保留这些 Spring Boot MVC 定制化设置并进行更多的 MVC 定制化（如拦截器、格式化程序、视图控制器等其他功能），可以添加您自己的类型为 `WebMvcConfigurer` 的 `@Configuration` 类。但不能使用`@EnabWebMvc`注解。（**在使用自动配置的基础上额外添加配置**）
 
 
 
@@ -298,11 +296,9 @@ OrderedFormContentFilter 是 Spring Boot 中用于处理 HTTP 请求的一个过
 
 SpringBoot在这个类`WebMvcAutoConfigurationAdapter`中进行了一系列的Spring MVC相关配置。
 
-**<font style="color:#DF2A3F;">我们开发中要对Spring MVC的相关配置进行修改，可以编写一个类继承</font>**`**<font style="color:#DF2A3F;">WebMvcAutoConfigurationAdatper</font>**`**<font style="color:#DF2A3F;">，然后重写对应的方法即可。</font>**
+<font style="color:red;">**我们开发中要对Spring MVC的相关配置进行修改，可以编写一个类继承`WebMvcAutoConfigurationAdapter`，然后重写对应的方法即可。**</font>
 
-**<font style="color:#DF2A3F;">因此，通过对</font>**`**<font style="color:#DF2A3F;">WebMvcAutoConfigurationAdapter</font>**`**<font style="color:#DF2A3F;">类中的方法进行重写来</font>****<font style="color:#74B602;">修改</font>****<font style="color:#DF2A3F;">Web MVC的默认配置。</font>**
-
-**<font style="color:#DF2A3F;"></font>**
+<font style="color: red;">**因此通过对`WebMVCAutoConfigurationAdapter`类中的方法进行重写来修改Web MVC的默认配置。**</font>
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
@@ -338,7 +334,7 @@ public interface WebMvcConfigurer {
     default void addCorsMappings(CorsRegistry registry) {}
     // 用于快速定义简单的 URL 到视图的映射，而无需编写完整的控制器类和方法。
     default void addViewControllers(ViewControllerRegistry registry) {}
-    // 用于定制 Spring MVC 如何解析控制器方法中的参数，包括如何从请求中获取并转换参数值。
+    // 用于定制 Spring MVC 如何解析控制器方法中的参数，包括如何从请求中获取并转换参数值。（请求传过来的是字符串，需要转换成数字）
     default void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {}
     // 用于定制 Spring MVC 如何处理控制器方法的返回值，包括如何将返回值转换为实际的 HTTP 响应。
     default void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {}
@@ -435,9 +431,7 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 **WebJars介绍**
 
-<font style="color:rgb(44, 44, 54);">WebJars 是一种将常用的前端库（如 jQuery、Bootstrap、Font Awesome 等）打包成 JAR 文件的形式，方便在 Java 应用程序中使用。WebJars 提供了一种标准化的方式来管理前端库，使其更容易集成到 Java 项目中，并且可以利用 Maven 的依赖管理功能。</font>
-
-<font style="color:rgb(44, 44, 54);"></font>
+WebJars 是一种将常用的前端库（如 jQuery、Bootstrap、Font Awesome 等）打包成 JAR 文件的形式，方便在 Java 应用程序中使用。WebJars 提供了一种标准化的方式来管理前端库，使其更容易集成到 Java 项目中，并且可以利用 Maven 的依赖管理功能。
 
 **<font style="color:rgb(44, 44, 54);">WebJars在SpringBoot中的使用</font>**
 
@@ -546,23 +540,24 @@ SpringBoot对普通静态资源处理的规则是：
 
 以上三行代码的解释如下：
 
-+ registration.setCachePeriod(getSeconds(this.resourceProperties.getCache().getPeriod()));
++ `registration.setCachePeriod(getSeconds(this.resourceProperties.getCache().getPeriod()));`
     - 设置缓存的过期时间（如果没有指定单位，默认单位是秒）
     - 浏览器会**根据响应头中的缓存控制信息**决定是否从本地缓存中加载资源，而不是每次都从服务器重新请求。这有助于减少网络流量和提高页面加载速度。
     - 假设你配置了静态资源缓存过期时间为 1 小时（3600 秒），那么浏览器在首次请求某个静态资源后，会在接下来的一小时内从本地缓存加载该资源，而不是重新请求服务器。
-    - 可以通过`application.properties`的来修改默认的过期时间，例如：`<font style="color:rgb(51, 51, 51);">spring.web.resources.cache.period=3600</font>`<font style="color:rgb(51, 51, 51);">或者</font>`<font style="color:rgb(51, 51, 51);">spring.web.resources.cache.period=1h</font>`
-+ registration.setCacheControl(this.resourceProperties.getCache().getCachecontrol().toHttpCacheControl());
+    - 可以通过`application.properties`的来修改默认的过期时间，例如：<font style="color:red;">`spring.web.resources.cache.period=3600`或者`spring.web.resources.cache.period=1h`</font>
++ `registration.setCacheControl(this.resourceProperties.getCache().getCachecontrol().toHttpCacheControl());`
     - 设置静态资源的 Cache-Control HTTP 响应头，告诉浏览器如何去缓存这些资源。
-    - `<font style="color:rgb(44, 44, 54);">Cache-Control</font>`<font style="color:rgb(44, 44, 54);"> HTTP 响应头   是HTTP响应协议的一部分内容。如下图响应协议的响应头信息中即可看到</font>`<font style="color:rgb(44, 44, 54);">Cache-Control</font>`<font style="color:rgb(44, 44, 54);">的字样：</font>
+    - 如果在这里也设置了缓存过期时间的话，那么上述`registration.setCachePeriod(getSeconds(this.resourceProperties.getCache().getPeriod()));`这行代码所设置的缓存过期时间就会失效。
+    - `Cache-Control`HTTP 响应头   是HTTP响应协议的一部分内容。如下图响应协议的响应头信息中即可看到`Cache-Control`的字样：
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730367060571-fb49d8ba-39d5-4a04-9c6b-cbce0add9283.png)
 
-    - <font style="color:rgb(44, 44, 54);">常见的 Cache-Control 指令包括：</font>
-        * <font style="color:rgb(44, 44, 54);">max-age=<seconds>：表示响应在多少秒内有效。</font>
-        * <font style="color:rgb(44, 44, 54);">public：表示响应可以被任何缓存机制（如代理服务器）缓存。</font>
-        * <font style="color:rgb(44, 44, 54);">private：表示响应只能被用户的浏览器缓存。</font>
-        * <font style="color:rgb(44, 44, 54);">no-cache：表示在使用缓存的资源之前必须重新发送一次请求进行验证。</font>
-        * <font style="color:rgb(44, 44, 54);">no-store：表示不缓存任何响应的资源。</font>
+    常见的 Cache-Control 指令包括：
+    	max-age=<seconds>：表示响应在多少秒内有效。
+    	public：表示响应可以被任何缓存机制（如代理服务器）缓存。
+    	private：表示响应只能被用户的浏览器缓存。
+    	no-cache：表示在使用缓存的资源之前必须重新发送一次请求进行验证。
+    	no-store：表示不缓存任何响应的资源。
     - 例如：max-age=3600, public：表示响应在 3600 秒内有效，并且可以被任何缓存机制缓存。
     - 可以通过`spring.web.resources.cache.cachecontrol.max-age=3600`以及`spring.web.resources.cache.cachecontrol.cache-public=true`进行重新配置。
 + registration.setUseLastModified(this.resourceProperties.getCache().isUseLastModified());
@@ -715,9 +710,7 @@ spring.web.resources.add-mappings=true
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
-**<font style="color:#DF2A3F;">以上所说的</font>**`**<font style="color:#DF2A3F;">WebMvcAutoConfiguration</font>**`**<font style="color:#DF2A3F;">类中的内部类</font>**`**<font style="color:#DF2A3F;">EnableWebMvcConfiguration</font>**`**<font style="color:#DF2A3F;">，是用来启用Web MVC默认配置的。</font>**
-
-**<font style="color:#DF2A3F;"></font>**
+**<font style="color:#DF2A3F;">以上所说的`WebMvcAutoConfiguration`类中的内部类`EnableWebMvcConfiguration`，是用来启用Web MVC默认配置的。</font>**
 
 **<font style="color:#DF2A3F;">注意区分：WebMvcAutoConfiguration的两个内部类：</font>**
 
@@ -743,13 +736,9 @@ Spring Boot项目中`favicon.ico`文件应该放在哪里呢？Spring Boot官方
 
 以上官方说明的：将`favicon.ico`文件放到静态资源路径下即可。
 
-
-
 web站点没有提供`favicon.ico`时：
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730427725460-6c4062dc-df53-495c-8709-431dd38f2337.png)
-
-
 
 我们在[https://www.iconfont.cn/](https://www.iconfont.cn/) （阿里巴巴提供的图标库）上随便找一个图标，然后将图片名字命名为`favicon.ico`，然后将其放到SpringBoot项目的静态资源路径下：
 
@@ -810,13 +799,9 @@ spring.web.resources.static-locations=classpath:/static1/,classpath:/static2/
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730433063487-fe214e35-a43c-4ad0-9760-742f6bfcdcf6.png)
 
-
-
 **访问普通静态资源测试结果如下：**
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730433000967-37e76b55-5715-4387-a135-5daacd53a755.png)
-
-
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
@@ -832,13 +817,11 @@ spring.web.resources.static-locations=classpath:/static1/,classpath:/static2/
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730433508569-ce398096-8cae-42e3-b6a2-5fe94e2a007a.png)
 
-
-
 但是，存储在`classpath:/META-INF/resources/`目录下的`dog1.jpg`仍然是可以访问的：
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730433537233-e7fe1330-22d3-4b36-8c43-bbdc9a578f99.png)
 
-因此，存储在`classpath:/META-INF/resources/`位置的静态资源会被默认加载，不受手动配置的影响。
+因此，<font style="color:red">**存储在`classpath:/META-INF/resources/`位置的静态资源会被默认加载，不受手动配置的影响。**</font>
 
 
 
@@ -901,8 +884,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 **<font style="color:#DF2A3F;">因此，以上的方式只是在Spring MVC默认行为之外扩展行为。</font>**
 
-**<font style="color:#DF2A3F;"></font>**
-
 如果你不想再继续使用SpringBoot提供的默认行为，可以使用`@EnableWebMvc`进行标注。例如：
 
 ```java
@@ -932,15 +913,13 @@ public class WebConfig implements WebMvcConfigurer {
 
 可以看到，默认配置已经不再生效。
 
-
-
 再来看看，我们自己的配置是否仍然生效：
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730444650423-57b49f40-b595-4c27-935e-1c6361f20ba4.png)
 
 仍然生效。
 
-
+注意：<font style="color:red">**以上使用`@EnableWebMvc`标注之后，只重写了`addResourceHandlers`方法，表示在进行静态资源处理的时候完全不使用springboot默认的自动配置，但是不影响其他的默认的自动配置，例如关于缓存的自动配置还是存在的。**</font>
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
