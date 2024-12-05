@@ -13,5 +13,6 @@
     <file url="file://$PROJECT_DIR$/springboot3-07-mybatis/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot3-08-ssm/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springboot3-09-auto-configuration/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot3-10-converter/src/main/java" charset="UTF-8" />
   </component>
 </project>

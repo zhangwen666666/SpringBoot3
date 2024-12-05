@@ -965,8 +965,6 @@ public class WebConfig2 {
 
 通过了测试，并且以上代码也是在原有配置基础上进行扩展。
 
-
-
 如果要弃用默认配置，仍然使用	`@EnableWebMvc`注解进行标注。自行测试！
 
 
@@ -1046,8 +1044,6 @@ public class WebConfig2 {
 ### 为什么只要容器中有`WebMvcConfigurer`组件即可呢
 源码分析：
 
-
-
 `WebMvcAutoConfiguration`部分源码：
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730446108216-7ff9fb75-c9dd-4ba3-8b59-23f6c78d0b1a.png)
@@ -1068,7 +1064,7 @@ public class WebConfig2 {
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
-对于`WebMvcConfigurerComposite`类的代码来说，它是一个非常典型的`**<font style="color:#DF2A3F;">组合模式</font>**`。
+对于`WebMvcConfigurerComposite`类的代码来说，它是一个非常典型的`组合模式`。
 
 组合模式的关键点：
 
@@ -1078,7 +1074,7 @@ public class WebConfig2 {
 
 总结：WebMvcConfigurerComposite 主要采用了组合模式的思想，将多个 WebMvcConfigurer 实例组合在一起，形成一个整体。
 
-注意：组合模式是GoF 23种设计模式中的结构型设计模式。
+注意：**组合模式是GoF 23种设计模式中的结构型设计模式。**
 
 # web请求的路径匹配
 我们在学习SpringMVC的时候，路径匹配规则中学习了`Ant`风格的路径匹配规则。大家可以翻看一下之前的Spring MVC视频。
@@ -1087,7 +1083,7 @@ public class WebConfig2 {
 
 + 第一种：AntPathMatcher（Ant风格）【**<font style="color:#DF2A3F;">较旧</font>**】
 + 第二种：PathPatternParser（从Spring5.3中引入的。在SpringBoot2.4中引入的。）【**<font style="color:#DF2A3F;">较新：效率高</font>**】
-    - **<font style="color:#DF2A3F;">效率比Ant高，一般新项目中使用</font>**`**<font style="color:#DF2A3F;">PathPatternParser</font>**`
+    - **<font style="color:#DF2A3F;">效率比Ant高，一般新项目中使用</font>**`PathPatternParser`
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
@@ -1102,13 +1098,13 @@ Ant风格的路径匹配规则回顾：
 
 **<font style="color:#DF2A3F;">*</font>**	匹配任意长度的任意字符序列（不包括路径分隔符）。示例：/foo/*.html 匹配 /foo/bar.html 和 /foo/baz.html。
 
-**<font style="color:#DF2A3F;">**</font>**	匹配任意数量的目录层级。示例：/foo/** 匹配 /foo/bar、/foo/bar/baz 和 /foo/bar/baz/qux。
+匹配任意数量的目录层级。示例：/foo/** 匹配 /foo/bar、/foo/bar/baz 和 /foo/bar/baz/qux。
 
-**<font style="color:#DF2A3F;">?</font>****	**匹配**任意单个字符**。示例：/foo?bar 匹配 /foobar 和 /fooxbar。
+**<font style="color:#DF2A3F;">?</font>**	匹配**任意单个字符**。示例：/foo?bar 匹配 /foobar 和 /fooxbar。
 
-**<font style="color:#DF2A3F;">[]</font>****	**匹配指定范围内的单个字符。示例：/foo[a-z]bar 匹配 /fooabar、/foobbar 等。
+**<font style="color:#DF2A3F;">[]</font>**	匹配指定范围内的单个字符。示例：/foo[a-z]bar 匹配 /fooabar、/foobbar 等。
 
-**<font style="color:#DF2A3F;">{}</font>****	**路径变量，用于提取路径的一部分作为参数。示例：/users/{userId} 匹配 /users/123，提取 userId=123。
+**<font style="color:#DF2A3F;">{}</font>**	路径变量，用于提取路径的一部分作为参数。示例：/users/{userId} 匹配 /users/123，提取 userId=123。
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
@@ -1209,7 +1205,7 @@ public String path(HttpServletRequest request, @PathVariable String path){
 内容协商机制是Spring MVC框架提供的，接下来主要是学习在SpringBoot中是如何支持SpringMVC内容协商机制的。
 
 ## 对内容协商的理解
-内容协商机制是指服务器根据客户端的请求来决定返回资源的最佳表示形式。
+内容协商机制是指**服务器根据客户端的请求来决定返回资源的最佳表示形式。**
 
 白话文描述：客户端要什么格式的数据，咱后端就应该返回什么格式的数据。
 
@@ -1318,7 +1314,7 @@ public class User {
 + `Accept: application/xml`则返回XML格式的数据
 + `Accept: application/json`则返回JSON格式的数据
 
-### <font style="color:rgb(44, 44, 54);">通过请求参数（如 </font>`<font style="color:rgb(44, 44, 54);">format</font>`<font style="color:rgb(44, 44, 54);">）</font>
+### <font style="color:rgb(44, 44, 54);">通过请求参数（如 </font>`format`<font style="color:rgb(44, 44, 54);">）</font>
 接下来我们使用请求参数的方式，来测试一下服务器的响应，注意：默认的请求参数名为`format`。
 
 我们仍然使用`curl`命令行工具进行测试：
@@ -1375,7 +1371,7 @@ spring.mvc.contentnegotiation.parameter-name=type
 内置的常见的`HttpMessageConverter`的实现类包括：
 
 + <font style="color:#DF2A3F;">【请求】提交的表单（form）数据转换成Java对象的主要任务是由 FormHttpMessageConverter 消息转换器完成的</font>
-+ <font style="color:#DF2A3F;">【请求】提交的JSON数据转换成Java对象的主要任务是由 MappingJackson2HttpMessageConverter 消息转换器完成的。（我们通常使用的</font>`<font style="color:#DF2A3F;">@RequestBody</font>`<font style="color:#DF2A3F;">注解）</font>
++ <font style="color:#DF2A3F;">【请求】提交的JSON数据转换成Java对象的主要任务是由 MappingJackson2HttpMessageConverter 消息转换器完成的。（我们通常使用的</font>`@RequestBody`<font style="color:#DF2A3F;">注解）</font>
 + 【响应】将Java对象转换成JSON格式的数据，并将其写入HTTP响应体的任务是由 MappingJackson2HttpMessageConverter 消息转换器完成。（我们通常使用的`@ResponseBody`注解)
 + 【响应】将Java对象转换成XML格式的数据，并将其写入HTTP响应体的任务通常由 Jaxb2RootElementHttpMessageConverter 消息转换器完成。
 + 【响应】将 String 直接写入到响应体的任务是由 StringHttpMessageConverter 消息转换器完成。
@@ -1429,8 +1425,6 @@ WebMvcAutoConfiguration.EnableWebMvcConfiguration extends DelegatingWebMvcConfig
 `EnableWebMvcConfiguration`继承了`DelegatingWebMvcConfiguration`
 
 `DelegatingWebMvcConfiguration`继承了`WebMvcConfigurationSupport`
-
-
 
 在`WebMvcConfigurationSupport`类中有这样一个方法：`addDefaultHttpMessageConverters()` 用来添加默认的`HttpMessageConverter`对象。
 
@@ -1529,6 +1523,7 @@ public class Jackson2YamlTest {
 默认支持xml和json两种媒体类型，要支持yaml格式的，需要新增一个yaml媒体类型，在springboot的配置文件中进行如下配置：
 
 ```properties
+# 以下的配置中媒体类型的名字是:yaml，媒体类型的值是text/yaml
 spring.mvc.contentnegotiation.media-types.yaml=text/yaml
 ```
 
@@ -1555,7 +1550,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 public class YamlHttpMessageConverter extends AbstractHttpMessageConverter<Object> {
-
+	// objectMapper对象
     private ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
 
     public YamlHttpMessageConverter() {
@@ -1563,6 +1558,7 @@ public class YamlHttpMessageConverter extends AbstractHttpMessageConverter<Objec
         super(new MediaType("text", "yaml", Charset.forName("UTF-8")));
     }
 
+    // 这个方法用来指定此消息转化器只适合于哪些类型的对象。
     @Override
     protected boolean supports(Class<?> clazz) {
         // 表示User类型的数据支持yaml，其他类型不支持
@@ -1762,7 +1758,7 @@ Thymeleaf的自动配置类：`ThymeleafAutoConfiguration`
 
 ## Thymeleaf核心语法
 ### th:text 替换标签体内容
-注意：在根标签<html>中引入 xmlns:th="[http://www.thymeleaf.org"](http://www.thymeleaf.org")，在编写`th:`语法时有智能提示。
+注意：在根标签\<html>中引入 xmlns:th="[http://www.thymeleaf.org"](http://www.thymeleaf.org")，在编写`th:`语法时有智能提示。
 
 `th:text`用来替换标签体内容的，例如：
 
@@ -1781,7 +1777,7 @@ th:text 语法：替换标签体中的内容
 
 
 
-提示：标签体中的内容即使是一段HTML代码，也只是会被当做普通文本对待。例如我们让存储在域中的文本内容是一段HTML代码：
+提示：**标签体中的内容即使是一段HTML代码，th:text也只是会被当做普通文本对待**。例如我们让存储在域中的文本内容是一段HTML代码：
 
 ```java
 model.addAttribute("htmlCode", "<a href='http://www.bjpowernode.com'>动力节点</a>");
@@ -1796,7 +1792,7 @@ model.addAttribute("htmlCode", "<a href='http://www.bjpowernode.com'>动力节�
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730795096806-e6cf0de5-6295-4e67-990b-97a9ace01976.png)
 
 ### th:utext 替换标签体内容
-作用和 `th:text`一样。只不过`th:utext`会将内容当做一段HTML代码解析并替换。将以上测试代码修改为：
+作用和 `th:text`一样。**只不过`th:utext`会将内容当做一段HTML代码解析并替换**。将以上测试代码修改为：
 
 ```html
 th:utext 语法：替换标签体中的内容
