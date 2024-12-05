@@ -7,16 +7,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springboot3-07-mybatis" />
+        <module name="test-ph" />
         <module name="springboot3-06-config-annotation" />
-        <module name="springboot3-10-converter" />
         <module name="springboot3-03-use-idea-plugin" />
+        <module name="springboot3-11-pageHelper" />
         <module name="springboot3-02-use-spring-initializr" />
         <module name="springboot3-05-junit" />
+        <module name="lombok-test" />
+        <module name="springboot3-07-mybatis" />
+        <module name="springboot3-12-ph" />
+        <module name="springboot3-10-converter" />
         <module name="springboot3-09-auto-configuration" />
         <module name="springboot3-04-core-annotation" />
         <module name="springboot3-01-first" />
-        <module name="lombok-test" />
         <module name="springboot3-08-ssm" />
       </profile>
     </annotationProcessing>
@@ -33,6 +36,9 @@
       <module name="springboot3-08-ssm" options="-parameters" />
       <module name="springboot3-09-auto-configuration" options="-parameters" />
       <module name="springboot3-10-converter" options="-parameters" />
+      <module name="springboot3-11-pageHelper" options="-parameters" />
+      <module name="springboot3-12-ph" options="-parameters" />
+      <module name="test-ph" options="-parameters" />
     </option>
   </component>
 </project>

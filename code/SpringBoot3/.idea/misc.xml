@@ -15,6 +15,9 @@
         <option value="$PROJECT_DIR$/springboot3-08-ssm/pom.xml" />
         <option value="$PROJECT_DIR$/springboot3-09-auto-configuration/pom.xml" />
         <option value="$PROJECT_DIR$/springboot3-10-converter/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot3-11-pageHelper/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot3-12-ph/pom.xml" />
+        <option value="$PROJECT_DIR$/test-ph/pom.xml" />
       </list>
     </option>
   </component>

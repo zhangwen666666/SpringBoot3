@@ -1888,8 +1888,6 @@ model.addAttribute("style", "color:red");
 
 `@{}`表达式语法是专门用来维护URL请求路径的。它可以动态设置项目的根路径。
 
-
-
 SpringBoot中默认的项目根路径是：`/`
 
 假设我们编写这样的java代码，向model中绑定一个路径：
@@ -2078,11 +2076,9 @@ server.servlet.context-path=/myweb
 ### 条件判断th:if
 th:if 语法用来决定元素是否显示：true显示。false隐藏。
 
-<div th:if="true">我是一个div元素</div>，则显示该div
+`<div th:if="true">我是一个div元素</div>，则显示该div`
 
-<div th:if="false">我也是一个div元素</div>，则隐藏该div
-
-
+`<div th:if="false">我也是一个div元素</div>，则隐藏该div`
 
 实现这样一个功能：用户如果没有留下简介，则显示`你比较懒没有留下任何介绍信息`，如果留下了简介，则显示具体的简介信息。
 
@@ -2207,15 +2203,13 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
-**与 **`**${...}**`** 的区别**
+**与 `${...}` 的区别**
 
 + `${...}`：标准表达式，用于访问模型中的变量和执行简单的表达式。
 + `*{...}`：属性选择表达式，用于在上下文中访问对象的属性，通常与 `th:object` 一起使用。
 
 ### 代码片段共享
 片段是Thymeleaf中用于代码复用的基本机制。你可以将共享的部分提取到单独的HTML文件中，然后在其他模板中引用这些片段。
-
-
 
 页面中公共的header.html
 
@@ -2486,11 +2480,9 @@ Spring Boot 默认会在模型Model中放置以下信息：
 + message: 错误消息
 + trace: 堆栈跟踪
 
-在thymeleaf中使用 `${message}`即可取出信息。
+<font style="color:red">**在thymeleaf中使用 `${message}`即可取出信息。**</font>
 
-
-
-注意：**<font style="color:#DF2A3F;">springboot3.3.5</font>**版本默认只向Model对象中绑定了`timestamp``status``error`。如果要保存`exception``message``trace`，需要开启以下三个配置：
+注意：**<font style="color:#DF2A3F;">springboot3.3.5</font>**版本默认只向Model对象中绑定了`timestamp` `status` `error`。如果要保存`exception` `message` `trace`，需要开启以下三个配置：
 
 ```plain
 server.error.include-stacktrace=always
@@ -2626,7 +2618,7 @@ public class MyController {
     @GetMapping("/test")
     @ResponseBody
     public String test(HttpServletRequest request){
-        Locale locale = request.getLocale();
+        Locale locale = request.getLocale(); // 获取语言环境
         String message = messageSource.getMessage("welcome.message", null, locale);
         return message;
     }
@@ -2641,7 +2633,7 @@ springboot默认嵌入的web服务器是Tomcat，如何切换到jetty服务器�
 
 实现方式：排除Tomcat，添加Jetty依赖
 
-**修改 **`pom.xml`** 文件**：在 `pom.xml` 中，确保你使用 `spring-boot-starter-web` 并排除 Tomcat，然后添加 Jetty 依赖。
+**修改 `pom.xml`文件**：在 `pom.xml` 中，确保你使用 `spring-boot-starter-web` 并排除 Tomcat，然后添加 Jetty 依赖。
 
 ```xml
 <!-- 排除 Tomcat -->
