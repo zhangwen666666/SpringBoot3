@@ -22,6 +22,15 @@
         <module name="springboot3-01-first" />
         <module name="springboot3-08-ssm" />
       </profile>
+      <profile name="Annotation profile for springboot3-13-ph" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$PROJECT_DIR$/../../../../Maven/repository/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="springboot3-13-ph" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
@@ -38,6 +47,7 @@
       <module name="springboot3-10-converter" options="-parameters" />
       <module name="springboot3-11-pageHelper" options="-parameters" />
       <module name="springboot3-12-ph" options="-parameters" />
+      <module name="springboot3-13-ph" options="-parameters" />
       <module name="test-ph" options="-parameters" />
     </option>
   </component>

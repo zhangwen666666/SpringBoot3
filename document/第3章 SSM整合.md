@@ -581,14 +581,12 @@ public class com.powernode.lomboktest.model.User {
 **@RequiredArgsConstructor**：
 
 + 生成包含所有被 `final` 修饰符修饰的实例变量的构造方法。
-+ **<font style="color:#DF2A3F;">如果没有</font>**`**<font style="color:#DF2A3F;">final</font>**`**<font style="color:#DF2A3F;">的实例变量，则自动生成无参数构造方法。</font>**
++ **<font style="color:#DF2A3F;">如果没有</font>**`final`**<font style="color:#DF2A3F;">的实例变量，则自动生成无参数构造方法。</font>**
 
 **@ToString** / **@EqualsAndHashCode**：
 
 + 用于生成 toString 和 equals/hashCode 方法。
-+ **<font style="color:#DF2A3F;">这两个注解都有</font>**`**<font style="color:#DF2A3F;">exclude</font>**`**<font style="color:#DF2A3F;background-color:#ffffff;">属性，通过这个属性可以定制toString、hashCode、equals方法。</font>**
-
-**<font style="color:#DF2A3F;background-color:#ffffff;"></font>**
++ 这两个注解都有`exclude`属性，通过这个属性可以定制toString、hashCode、equals方法。
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1730804471502-31c64115-c49a-4d76-92e0-90e9ae543b32.png)
 
