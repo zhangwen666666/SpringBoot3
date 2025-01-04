@@ -1026,7 +1026,12 @@ public class UserService {
 
 ![](https://cdn.nlark.com/yuque/0/2024/png/21376908/1729234205353-0573b981-7c8f-41ba-94eb-e5a857d8815d.png)
 
+## Lombok失效问题
+
+点击设置->构建、执行、部署->编译器->注解处理器->选中模块->开启注解处理并选择从项目类路径获取处理器
+
 # MyBatis逆向生成
+
 MyBatis逆向工程：使用IDEA插件可以根据数据库表的设计逆向生成MyBatis的Mapper接口 与 MapperXML文件。
 
 ## 安装插件`free mybatis tools`
